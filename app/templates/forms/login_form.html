@@ -1,0 +1,23 @@
+{%extends "main.html" %}
+
+{% block content %}
+	 {% for error in form.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+
+	<form method="post" action="/login">
+	  {{ form.hidden_tag() }}
+	  <label for="login">Логин</label>
+	  <div class='form-group'>
+            {{ form.login(size=32,class="form-control",placeholder="Логин") }}
+       </div>
+       <label for="password">Пароль</label>
+	   <div class='form-group'>
+			{{ form.password(size=32,class="form-control",placeholder="Пароль") }}
+       </div>        
+        {{ form.remember_me() }} {{ form.remember_me.label }}
+        {{ form.submit(class="btn btn-success") }}
+        {% if denied %}
+			<p class='bg-danger'>Неверное имя пользователя или пароль</p>
+		{% endif %}
+{% endblock %}

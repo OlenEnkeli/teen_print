@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <h1>Вы здесь первый раз! Зарегистрируйтесь чтобы получать уедомления</h1>
+    <form method="post" action="/register">
+	  {{ form.hidden_tag() }}
+	  <label for="login">Логин</label>
+	  <div class='form-group'>
+            {{ form.login(size=32,class="form-control",placeholder="Логин") }}
+       </div>
+       <label for="password">Пароль</label>
+	   <div class='form-group'>
+			{{ form.password(size=32,class="form-control",placeholder="Пароль") }}
+       </div>        
+       {{ form.submit(class="btn btn-success") }}
+{% endblock %}

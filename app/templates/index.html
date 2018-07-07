@@ -1,0 +1,64 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+	<div class="container-fluid header">
+		<img src="/static/pictures/PC.svg" class="img-responsive" >
+		<h2> Print secure сделает печать на 3D принтере комфортней. Теперь не нужно беспокоиться о том, что вся работа будет напрасной. Print Secure значительно снизит риск сбоя печати  </h2>
+
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4">
+				<img src="/static/pictures/box.svg" class="img-responsive">
+				<h1 align = 'center'>Экономия</h1>
+				<p class = 'prem' > Теперь сбои при печати будут происзодить на 70% реже,ф это значит , что будет гораздо меньше лишних затрат. </p>
+			</div>
+			<div class="col-md-4">
+				<img src="/static/pictures/infinity.svg" class="img-responsive">
+				<h1 align = 'center'> Долговечность</h1>
+				<p class = 'prem' > Print Secure максимально удобен,именно поэтому предусмотренные картреджи, которые позволят девайсу работать на протяжении долгого времени. </p>
+			</div>
+			<div class="col-md-4">
+				<img src="/static/pictures/mail.svg" class="img-responsive">
+				<h1 align = 'center'>Оповещения</h1>
+				<p class = 'prem' > Если печать собьется, то Print Secure сообщит вам об этом и позволит остановить работу 3D принтера.</p>
+			</div>
+		</div>
+	</div>
+	{% if noauto %}
+	<div class="container-fluid login-block">
+		<div class="row">
+			<div class="col-md-4 login-center">
+				<form method="post" action="/login">
+			  {{ form.hidden_tag() }}
+			  <label for="login">Логин</label>
+			  <div class='form-group'>
+					{{ form.login(size=32,class="form-control",placeholder="Логин") }}
+			   </div>
+			   <label for="password">Пароль</label>
+			   <div class='form-group'>
+					{{ form.password(size=32,class="form-control",placeholder="Пароль" , align = center) }}
+			   </div>
+				{{ form.remember_me() }} {{ form.remember_me.label }}
+				{{ form.submit(class="btn btn-success") }}
+				{% if denied %}
+					<p class='bg-danger login-status' color = 'black'>Неверное имя пользователя или пароль</p>
+				{% endif %}
+				</div>
+			</div>
+		</div>
+
+	{% else %}
+	<p class = 'bg-success login-status'>Вы уже авторизованы.</p>
+	<div class="container-fluid login-block">
+		<div class="row footer">
+				<a href="logout" class="btn btn-danger btn-lg active" role="button">Выход</a>
+				<a href="mail" class="btn btn-success btn-lg active" role="button">Уведомления</a>
+		</div>
+	</div>
+
+
+	{% endif %}
+{% endblock %}
