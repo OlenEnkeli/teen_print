@@ -5,12 +5,13 @@ from app.models import User,Msg
 from flask_login import logout_user
 import hashlib
 from flask_login import login_required
-@app.route('/')
+from flask import request
+
+@app.route('/' )
 def index_page():
 	form = forms.LoginForm()
-	print(current_user.is_authenticated)
+	
 	if current_user.is_authenticated:
-		
 		return render_template('index.html',title='Главная',form=form,noauto = False)
 	else:
 		return render_template('index.html',title='Главная',form=form,noauto = True)
@@ -36,7 +37,16 @@ def logout():
     logout_user()
     return redirect('/')
 	
-
+@app.route('/req', methods=['GET'])
+def req():
+	if request.method == 'GET':
+		user = User.query.filter_by(secret=request.args.get('secret', '')).first()
+		if user != None:
+			p = Msg(user_id = user.id,text = request.args.get('text', ''))
+			db.session.add(p)
+			db.session.commit()
+	return redirect('/')
+	
 @app.route('/logout')
 def logout_page():	
 	return None
